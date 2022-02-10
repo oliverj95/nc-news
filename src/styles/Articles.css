@@ -1,0 +1,24 @@
+.article-container{
+    overflow: auto;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    border: 2px solid black;
+    height: 150vh;
+    width: 80vw;
+    margin: 40px;
+    border-radius: 10px;
+
+   
+}
+
+.article-list {
+    list-style: none;
+    margin: 40px; 
+    border: 2px solid black;
+    border-radius: 10px;
+    height: fit-content;
+    overflow: auto;
+    
+}

@@ -1,9 +1,9 @@
 import React from "react";
 import { getTopics } from "../utils/api";
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 
-const Navigation = () => {
+
+const Navigation = (props) => {
   //set state for topics
   const [topics, setTopics] = useState([]);
   useEffect(() => {
@@ -11,23 +11,28 @@ const Navigation = () => {
       setTopics(topics);
     });
   }, []);
-
+  const {setTopicsValue} = props;
+  const handleTopicValue= (event) => {
+      setTopicsValue(event.target.value)
+   
+  }
   return (
     <div>
       <h2 className="topicTitle"> Topics: {topics.length} </h2>
       <nav className="nav">
         {" "}
         Topics:
-        {topics.map((topic) => {
-          //for every topic we display we want to link that changes the url
+        <select onChange={handleTopicValue}>
+            {topics.map((topic) => {
           return (
-            <Link key={topic.slug} to={`/topics/${topic.slug}`}>
-              {topic.slug}
-            </Link>
+              <option key={topic.slug}>
+                  {topic.slug}
+            </option>
           );
         })}
-      </nav>
-    </div>
+        </select>
+        </nav>
+        </div>
   );
 };
 

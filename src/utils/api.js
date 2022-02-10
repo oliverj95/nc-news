@@ -5,13 +5,49 @@ const newsAPI = axios.create({
 })
 
 export const getTopics = () => {
-    return newsAPI.get("/topics").then((res) => {
+    return newsAPI
+    .get("/topics")
+    .then((res) => {
         return res.data.topics
     })
 }
 
-export const getArticles = () => {
-    return newsAPI.get("/articles").then((res) => {
+export const getArticles = (topicsValue) => {
+  const ifTopics = topicsValue ? `/articles?topic=${topicsValue}` : "/articles"
+return newsAPI
+.get(ifTopics)
+.then((res) => {
         return res.data.articles
     })
 }
+
+export const getSingleArticle = (article_id) => {
+return newsAPI.get(`/articles/${article_id}`)
+.then((res) => {
+    return res.data.article
+})
+}
+
+export const getComments = (article_id) => {
+    return newsAPI.get(`/articles/${article_id}/comments`)
+    .then((res) => {
+        return res.data.comments
+    })
+}
+// getsinglearticle 
+// pull back data for single article and render it
+
+export const postComment = (article_id, inputValue) => {
+    return newsAPI.post(`/articles/${article_id}/comments`, inputValue)
+    .then((res) => {
+        console.log(res.data)
+        return res.data.newComment
+    })
+}
+
+// export const deleteComment = (article_id, comment_id) => {
+//     return newsAPI.delete(`/articles/${article_id}/comment_id`)
+//     .then((res) => {
+//         console.log(res.data)
+//     })
+// }
