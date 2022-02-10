@@ -34,8 +34,6 @@ export const getComments = (article_id) => {
         return res.data.comments
     })
 }
-// getsinglearticle 
-// pull back data for single article and render it
 
 export const postComment = (article_id, inputValue) => {
     return newsAPI.post(`/articles/${article_id}/comments`, inputValue)
@@ -48,5 +46,13 @@ export const deleteComment = (comment_id) => {
     return newsAPI.delete(`/comments/${comment_id}`)
     .then((res) => {
         return res.data
+    })
+}
+
+export const patchVotes = (article_id, voteCount) => {
+    return newsAPI.patch(`/articles/${article_id}`, voteCount)
+    .then((res) => {
+        console.log(res.data.article)
+        return res.data.article
     })
 }

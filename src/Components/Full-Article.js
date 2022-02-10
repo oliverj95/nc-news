@@ -3,7 +3,7 @@ import { getSingleArticle } from "../utils/api";
 import { useParams } from "react-router-dom";
 import { getComments, postComment } from "../utils/api";
 import "../styles/Full-Article.css";
-import CommentCard from "../Components/Comment-card"
+import CommentCard from "../Components/Comment-card";
 
 const FullArticle = () => {
   const [articleDetails, setArticleDetails] = useState({});
@@ -13,14 +13,13 @@ const FullArticle = () => {
   const [inputValue, setInputValue] = useState({
     username: "",
     body: "",
-   });
-
+  });
 
   const handleInputValue = (event) => {
     setInputValue((currentValue) => {
       const newInput = { ...currentValue };
       if (event.target.className === "post-comment-username") {
-        newInput.username = event.target.value
+        newInput.username = event.target.value;
       } else if (event.target.className === "post-comment-body") {
         newInput.body = event.target.value;
       }
@@ -30,15 +29,13 @@ const FullArticle = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(inputValue)
     postComment(article_id, inputValue)
       .then((response) => {
-        console.log(response);
-        alert("post created")
+        alert("post created");
         window.location.reload();
       })
       .catch((err) => {
-        console.log(err);
+        throw err;
       });
   };
 
@@ -56,8 +53,7 @@ const FullArticle = () => {
 
   const handleDelete = (event) => {
     event.preventDefault();
-
-  }
+  };
 
   return (
     <div className="fullArticleDetails">
@@ -90,18 +86,18 @@ const FullArticle = () => {
         <button className="submit-comment-button">submit</button>
       </form>
       <div className="articleComments">
-        {commentData.map((comment) => {             
+        {commentData.map((comment) => {
           return (
-              <CommentCard
-           key={comment.comment_id} 
-           body={comment.body}          
-           author={comment.author}
-             votes={comment.votes}
-             comment_id={comment.comment_id}
-               />
+            <CommentCard
+              key={comment.comment_id}
+              body={comment.body}
+              author={comment.author}
+              votes={comment.votes}
+              comment_id={comment.comment_id}
+            />
           );
         })}
-      </ div>
+      </div>
     </div>
   );
 };

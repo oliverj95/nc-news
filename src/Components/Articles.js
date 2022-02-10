@@ -1,7 +1,7 @@
 import { getArticles } from "../utils/api";
 import React, { useState, useEffect } from "react";
+import ArticleCard from "../Components/Article-card"
 import "../styles/Articles.css";
-import { Link } from "react-router-dom";
 
 const Articles = (props) => {
   const { topicsValue } = props;
@@ -13,31 +13,33 @@ const Articles = (props) => {
       setArticles(res);
     });
   }, [topicsValue]);
+  
   return (
     <>
       <div className="article-container">
-        <h2> Articles: {articles.length} </h2>
+        <h2> Articles </h2>
         <ul>
           {articles.map((article) => {
             return (
-              <li className="article-list" key={article}>
-                <Link
-                  key={article.article_id}
-                  to={`/articles/${article.article_id}`}
-                >
-                  Title: {article.title} <br />
-                </Link>
-                Author: {article.author} <br />
-                Topic: {article.topic} <br />
-                Votes: {article.votes} <br />
-              </li>
+              <div>
+              <ArticleCard 
+              key={article.article_id}
+              title={article.title}
+              author={article.author} 
+              topic={article.topic} 
+              votes={article.votes}
+              article_id={article.article_id}
+              thumb={"👍"}
+              />
+        </div>
             );
           })}
         </ul>
         <br />
       </div>
     </>
-  );
-};
+  )
+        }
+
 
 export default Articles;
