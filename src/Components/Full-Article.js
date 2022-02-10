@@ -3,6 +3,7 @@ import { getSingleArticle } from "../utils/api";
 import { useParams } from "react-router-dom";
 import { getComments, postComment } from "../utils/api";
 import "../styles/Full-Article.css";
+import CommentCard from "../Components/Comment-card"
 
 const FullArticle = () => {
   const [articleDetails, setArticleDetails] = useState({});
@@ -33,6 +34,8 @@ const FullArticle = () => {
     postComment(article_id, inputValue)
       .then((response) => {
         console.log(response);
+        alert("post created")
+        window.location.reload();
       })
       .catch((err) => {
         console.log(err);
@@ -50,6 +53,11 @@ const FullArticle = () => {
       setCommentData(theComments);
     });
   }, [article_id]);
+
+  const handleDelete = (event) => {
+    event.preventDefault();
+
+  }
 
   return (
     <div className="fullArticleDetails">
@@ -81,17 +89,19 @@ const FullArticle = () => {
         ></input>
         <button className="submit-comment-button">submit</button>
       </form>
-      <ul className="articleComments">
-        {commentData.map((comment) => {
+      <div className="articleComments">
+        {commentData.map((comment) => {             
           return (
-            <li key={comment.comment_id} className="indComment">
-              {comment.body} <br />
-              Username: {comment.author} <br />
-              comment votes: {comment.votes}
-            </li>
+              <CommentCard
+           key={comment.comment_id} 
+           body={comment.body}          
+           author={comment.author}
+             votes={comment.votes}
+             comment_id={comment.comment_id}
+               />
           );
         })}
-      </ul>
+      </ div>
     </div>
   );
 };

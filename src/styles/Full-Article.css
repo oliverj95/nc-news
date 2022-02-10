@@ -10,33 +10,6 @@
   background-color: rgb(247, 247, 247);
 }
 
-.articleComments {
-  height: 70vh;
-  width: 90vw;
-}
-
-.full-article-title {
-    font-family:Verdana, Geneva, Tahoma, sans-serif;
-    font-weight: bold;
-    font-size: 2rem;
-
- }
-
- .author-heading {
-    font-size: 1rem;
 
 
- }
 
- .articleComments {
-    overflow: auto;
-    height: fit-content;
-
- }
-
- .indComment{
-    border: 2px solid black;
-    border-radius: 22px;
-    padding: 2px;
-
-}

@@ -40,14 +40,13 @@ export const getComments = (article_id) => {
 export const postComment = (article_id, inputValue) => {
     return newsAPI.post(`/articles/${article_id}/comments`, inputValue)
     .then((res) => {
-        console.log(res.data)
         return res.data.newComment
     })
 }
 
-// export const deleteComment = (article_id, comment_id) => {
-//     return newsAPI.delete(`/articles/${article_id}/comment_id`)
-//     .then((res) => {
-//         console.log(res.data)
-//     })
-// }
+export const deleteComment = (comment_id) => {
+    return newsAPI.delete(`/comments/${comment_id}`)
+    .then((res) => {
+        return res.data
+    })
+}
