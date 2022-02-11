@@ -49,13 +49,10 @@ const FullArticle = () => {
     getComments(article_id).then((theComments) => {
       setCommentData(theComments);
     });
-  }, [article_id]);
+  }, [article_id])
+  ;
 
-  const handleDelete = (event) => {
-    event.preventDefault();
-  };
-
-  return (
+   return (
     <div className="fullArticleDetails">
       <div className="full-article-title">
         {articleDetails.title} <br />

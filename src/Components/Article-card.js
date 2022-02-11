@@ -25,7 +25,7 @@ const ArticleCard = (props) => {
     <div>
       <li className="article-list" key={article_id}>
         <Link key={article_id} to={`/articles/${article_id}`}>
-          <div>title: {title}</div>
+          <div> {title}</div>
           </Link>
           <div>author: {author} </div>
           <div>topic {topic}</div>

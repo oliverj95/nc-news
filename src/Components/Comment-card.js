@@ -4,7 +4,7 @@ import "../styles/Comment-card.css";
 const CommentCard = (props) => {
  
   const { body, author, votes, comment_id } = props;
-  
+
   const handleDelete = (event) => {
     event.preventDefault();
     deleteComment(comment_id)
@@ -24,7 +24,7 @@ const CommentCard = (props) => {
       <div>{body}</div>
       <div>Posted by: {author}</div>
       <div>
-        Votes: {votes}
+        Votes:{votes}
         </div>
       <button className="deleteButton">delete</button>
     </form>

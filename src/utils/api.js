@@ -56,3 +56,6 @@ export const patchVotes = (article_id, voteCount) => {
         return res.data.article
     })
 }
+
+
+//created_at, comment count, votes
