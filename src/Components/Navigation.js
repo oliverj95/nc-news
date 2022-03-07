@@ -1,6 +1,8 @@
 import React from "react";
 import { getTopics } from "../utils/api";
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import "../styles/navigation.css"
 
 
 const Navigation = (props) => {
@@ -11,28 +13,47 @@ const Navigation = (props) => {
       setTopics(topics);
     });
   }, []);
-  const {setTopicsValue} = props;
-  const handleTopicValue= (event) => {
-      setTopicsValue(event.target.value)
-   
-  }
+  const { setTopicsValue, setSortValue } = props;
+  const handleTopicValue = (event) => {
+    setTopicsValue(event.target.value);
+  };
+
+  const handleSort = (event) => {
+    setSortValue(event.target.value);
+  };
+
   return (
+    
     <div>
       <h2 className="topicTitle"> Topics: {topics.length} </h2>
       <nav className="nav">
         {" "}
-        Topics:
-        <select onChange={handleTopicValue}>
-            {topics.map((topic) => {
+        
+        <Link to={"/articles"}>
+          <h3 onChange={handleTopicValue} className="allTopics">
+            {" "}
+            All{" "}
+          </h3>
+        </Link>
+        {topics.map((topic) => {
           return (
-              <option key={topic.slug}>
-                  {topic.slug}
-            </option>
+            <Link
+              key={topic.slug}
+              className="categories-link"
+              to={`/articles?topics=${topic.slug}`}
+            >
+              <h3 className="topicz">{topic.slug}</h3>
+            </Link>
           );
         })}
+        <h3 className="sort_by-title">Sort By</h3>
+        <select onChange={handleSort} className="sort_by-container">
+          <option value="votes">Votes</option>
+          <option value="created_at">Date</option>
+          <option value="comment_count">Comments</option>
         </select>
-        </nav>
-        </div>
+      </nav>
+    </div>
   );
 };
 

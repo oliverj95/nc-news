@@ -4,7 +4,7 @@ import "../styles/Header.css"
 const Header = () => {
     return (
         <header>
-            <Link to="/">
+            <Link to="/articles">
             <h1 className="main-title"> NC News</h1>
             </Link>
         </header>

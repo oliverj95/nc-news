@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 
 const ArticleCard = (props) => {
-  const { thumb, title, author, topic, votes, article_id } = props;
+  const { thumb, title, author, topic, votes, article_id, created_at, comments } = props;
 
   const [voteCount, setVoteCount] = useState({ inc_votes: 1 });
 
@@ -28,8 +28,10 @@ const ArticleCard = (props) => {
           <div> {title}</div>
           </Link>
           <div>author: {author} </div>
-          <div>topic {topic}</div>
-          <div>votes {votes} </div>
+          <div>topic: {topic}</div>
+          <div>votes: {votes} </div>
+          <div>date: {created_at}</div>
+            <div>comments: {comments}</div>
           <div className="THUMB" onClick={handleVoteCount}>{thumb}</div>
         
       </li>
