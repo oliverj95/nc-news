@@ -1,11 +1,19 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { getUsers } from "../utils/api";
+import "../styles/Login.css";
+import { UserContext } from "../Contexts/User";
 
 export function Login() {
   const [users, setUsers] = useState([]);
+  const { setLoggedInUser, loggedInUser, isLoggedIn } = useContext(UserContext);
+
+  const clickUser = (user) => {
+    setLoggedInUser(user);
+    console.log(isLoggedIn)
+  };
+
   useEffect(() => {
     getUsers().then((data) => {
-      console.log(data);
       setUsers(data);
     });
   }, []);
@@ -15,10 +23,12 @@ export function Login() {
       <ul>
         {users.map((user) => {
           return (
-            <li>
-              <h4>{user.username}</h4>
-              <img src={user.avatar_url} />
-            </li>
+            <div className="userCard" onClick={() => clickUser(user)}>
+              <li key={user.username}>
+                <h4>{user.username}</h4>
+                <img className="avatars" src={user.avatar_url} />
+              </li>
+            </div>
           );
         })}
       </ul>
