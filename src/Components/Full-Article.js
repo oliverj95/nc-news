@@ -1,26 +1,26 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { getSingleArticle } from "../utils/api";
 import { useParams } from "react-router-dom";
 import { getComments, postComment } from "../utils/api";
 import "../styles/Full-Article.css";
 import CommentCard from "../Components/Comment-card";
+import { UserContext } from "../Contexts/User";
 
 const FullArticle = () => {
   const [articleDetails, setArticleDetails] = useState({});
   const [commentData, setCommentData] = useState([]);
   const { article_id } = useParams();
+  const { loggedInUser, isLoggedIn} = useContext(UserContext)
 
   const [inputValue, setInputValue] = useState({
-    username: "",
+    username: loggedInUser.username,
     body: "",
   });
 
   const handleInputValue = (event) => {
     setInputValue((currentValue) => {
       const newInput = { ...currentValue };
-      if (event.target.className === "post-comment-username") {
-        newInput.username = event.target.value;
-      } else if (event.target.className === "post-comment-body") {
+     if (event.target.className === "post-comment-body") {
         newInput.body = event.target.value;
       }
       return newInput;
@@ -28,7 +28,8 @@ const FullArticle = () => {
   };
 
   const handleSubmit = (event) => {
-    event.preventDefault();
+    if (isLoggedIn) {
+      event.preventDefault();
     postComment(article_id, inputValue)
       .then((response) => {
         alert("post created");
@@ -37,7 +38,11 @@ const FullArticle = () => {
       .catch((err) => {
         throw err;
       });
-  };
+  } else {
+    alert('Please log in to comment')
+  }
+    }
+    
 
   useEffect(() => {
     getSingleArticle(article_id).then((theArticle) => {
@@ -66,13 +71,6 @@ const FullArticle = () => {
       </p>
       <h3 className="commentsTitle"> Comments:</h3>
       <form onSubmit={handleSubmit}>
-        <input
-          onChange={handleInputValue}
-          required
-          className="post-comment-username"
-          type="text"
-          placeholder="Username"
-        ></input>
         <input
           onChange={handleInputValue}
           required
