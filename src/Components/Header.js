@@ -7,7 +7,11 @@ const Header = () => {
             <Link to="/articles">
             <h1 className="main-title"> NC News</h1>
             </Link>
+            <Link to="/Login">
+            <h4 className="Login"> Login </h4>
+            </Link>
         </header>
+
     )
 }
 

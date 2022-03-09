@@ -57,4 +57,10 @@ export const patchVotes = (article_id, voteCount) => {
   });
 };
 
+export const getUsers = () => {
+  return newsAPI.get("/users").then((res) => {
+    return res.data.users;
+  })
+}
+
 //created_at, comment count, votes
