@@ -84,16 +84,8 @@ const FullArticle = () => {
       </form>
       <ul className="articleComments">
         {commentData.map((comment) => {
-          // return (
-          //   // <CommentCard
-          //   //   key={comment.comment_id}
-          //   //   body={comment.body}
-          //   //   author={comment.author}
-          //   //   votes={comment.votes}
-          //   //   comment_id={comment.comment_id}
-          //   // />
-          // );
-          return <li key={comment.comment_id}>
+       
+          return <li className="commentCard" key={comment.comment_id }>
             <h3>{comment.author}</h3>
             <h4>Date created:{comment.created_at} </h4>
             <h4>Votes: {comment.votes}</h4>

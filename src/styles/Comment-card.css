@@ -1,0 +1,9 @@
+.commentCard {
+    list-style: none;
+    border: solid black 1px;
+    margin: 10px;
+    border-radius: 20px;
+    padding: 10px;
+    width: 50vw;
+    background-color: rgb(189, 177, 206);
+}
