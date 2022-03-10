@@ -5,6 +5,9 @@ import { getComments, postComment } from "../utils/api";
 import "../styles/Full-Article.css";
 import CommentCard from "../Components/Comment-card";
 import { UserContext } from "../Contexts/User";
+import { deleteComment } from "../utils/api";
+
+
 
 const FullArticle = () => {
   const [articleDetails, setArticleDetails] = useState({});
@@ -16,6 +19,11 @@ const FullArticle = () => {
     username: loggedInUser.username,
     body: "",
   });
+
+  const handleDelete = (value) => () => {
+    deleteComment(value)
+  
+  };
 
   const handleInputValue = (event) => {
     setInputValue((currentValue) => {
@@ -31,13 +39,7 @@ const FullArticle = () => {
     if (isLoggedIn) {
       event.preventDefault();
     postComment(article_id, inputValue)
-      .then((response) => {
-        alert("post created");
-        window.location.reload();
-      })
-      .catch((err) => {
-        throw err;
-      });
+
   } else {
     alert('Please log in to comment')
   }
@@ -54,7 +56,7 @@ const FullArticle = () => {
     getComments(article_id).then((theComments) => {
       setCommentData(theComments);
     });
-  }, [article_id])
+  }, [article_id, commentData])
   ;
 
    return (
@@ -80,19 +82,28 @@ const FullArticle = () => {
         ></input>
         <button className="submit-comment-button">submit</button>
       </form>
-      <div className="articleComments">
+      <ul className="articleComments">
         {commentData.map((comment) => {
-          return (
-            <CommentCard
-              key={comment.comment_id}
-              body={comment.body}
-              author={comment.author}
-              votes={comment.votes}
-              comment_id={comment.comment_id}
-            />
-          );
+          // return (
+          //   // <CommentCard
+          //   //   key={comment.comment_id}
+          //   //   body={comment.body}
+          //   //   author={comment.author}
+          //   //   votes={comment.votes}
+          //   //   comment_id={comment.comment_id}
+          //   // />
+          // );
+          return <li key={comment.comment_id}>
+            <h3>{comment.author}</h3>
+            <h4>Date created:{comment.created_at} </h4>
+            <h4>Votes: {comment.votes}</h4>
+            <p>{comment.body}</p>
+            {loggedInUser.username === comment.author ? <button onClick={handleDelete(comment.comment_id)}>Delete</button> : null}
+          </li>
+          
+
         })}
-      </div>
+      </ul>
     </div>
   );
 };

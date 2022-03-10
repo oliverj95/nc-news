@@ -2,14 +2,16 @@ import { useContext, useEffect, useState } from "react";
 import { getUsers } from "../utils/api";
 import "../styles/Login.css";
 import { UserContext } from "../Contexts/User";
+import { useNavigate } from "react-router"
 
 export function Login() {
   const [users, setUsers] = useState([]);
   const { setLoggedInUser, loggedInUser, isLoggedIn } = useContext(UserContext);
+const navigate = useNavigate()
 
   const clickUser = (user) => {
     setLoggedInUser(user);
-    console.log(isLoggedIn)
+    navigate("/")
   };
 
   useEffect(() => {

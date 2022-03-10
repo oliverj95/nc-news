@@ -21,16 +21,27 @@ function App() {
       >
         <div className="App">
           <Header />
-          <Navigation
+         
+          <Routes>
+            <Route path="/" element={
+              <>
+               <Navigation
             setTopicsValue={setTopicsValue}
             setSortValue={setSortValue}
           />
-          <Routes>
-            <Route path="/" element={<Articles />} />
+            <Articles />
+            </>
+            } />
             <Route
               path="/articles"
               element={
+                <>
+                <Navigation
+                setTopicsValue={setTopicsValue}
+                setSortValue={setSortValue}
+              />
                 <Articles sortValue={sortValue} topicsValue={topicsValue} />
+                </>
               }
             />
             <Route path="/articles/:article_id" element={<FullArticle />} />

@@ -9,13 +9,11 @@ const CommentCard = (props) => {
     event.preventDefault();
     deleteComment(comment_id)
       .then((res) => {
-        alert("comment deleted");
         window.location.reload();
         console.log(res);
       })
       .catch((err) => {
         console.log(err);
-        alert("delete unsuccessful");
       });
   };
 
