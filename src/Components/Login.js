@@ -21,8 +21,8 @@ const navigate = useNavigate()
   }, []);
 
   return (
-    <div>
-      <ul>
+    <div >
+      <ul className="userContainer">
         {users.map((user) => {
           return (
             <div className="userCard" onClick={() => clickUser(user)}>
