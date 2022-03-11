@@ -50,8 +50,8 @@ export const deleteComment = (comment_id) => {
   });
 };
 
-export const patchVotes = (article_id, voteCount) => {
-  return newsAPI.patch(`/articles/${article_id}`, voteCount).then((res) => {
+export const patchVotes = (article_id) => {
+  return newsAPI.patch(`/articles/${article_id}`, { inc_votes: 1 }).then((res) => {
     console.log(res.data.article);
     return res.data.article;
   });

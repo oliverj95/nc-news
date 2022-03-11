@@ -40,7 +40,6 @@ console.log(sortValue)
                   article_id={article.article_id}
                   created_at={article.created_at}
                   comments={article.comment_count}
-                  thumb={"👍"}
                 />
               </div>
             );

@@ -1,9 +1,8 @@
 import { useContext, useEffect, useState } from "react";
-import { getSingleArticle } from "../utils/api";
+import { getSingleArticle, patchVotes } from "../utils/api";
 import { useParams } from "react-router-dom";
 import { getComments, postComment } from "../utils/api";
 import "../styles/Full-Article.css";
-import CommentCard from "../Components/Comment-card";
 import { UserContext } from "../Contexts/User";
 import { deleteComment } from "../utils/api";
 
@@ -12,13 +11,25 @@ import { deleteComment } from "../utils/api";
 const FullArticle = () => {
   const [articleDetails, setArticleDetails] = useState({});
   const [commentData, setCommentData] = useState([]);
+  const [loginMessage, setLoginMessage] = useState(null)
+  const [votes, setVotes] = useState(0);
   const { article_id } = useParams();
   const { loggedInUser, isLoggedIn} = useContext(UserContext)
-
-  const [inputValue, setInputValue] = useState({
+   const [inputValue, setInputValue] = useState({
     username: loggedInUser.username,
     body: "",
   });
+ 
+
+  const handleVote = () => {
+    if(isLoggedIn) {
+      setVotes((currVotes) => currVotes + 1)
+      patchVotes(article_id)
+    }
+    else {      
+      setLoginMessage("Please login to vote!")
+  }
+  }
 
   const handleDelete = (value) => () => {
     deleteComment(value)
@@ -50,7 +61,7 @@ const FullArticle = () => {
     getSingleArticle(article_id).then((theArticle) => {
       setArticleDetails(theArticle);
     });
-  }, [article_id]);
+  }, [article_id, votes]);
 
   useEffect(() => {
     getComments(article_id).then((theComments) => {
@@ -71,6 +82,8 @@ const FullArticle = () => {
         <br />
         Votes: {articleDetails.votes}
       </p>
+      <div className="thumb" onClick={handleVote}> 👍 </div>
+      <p className="loginMessage">{loginMessage}</p>
       <h3 className="commentsTitle"> Comments:</h3>
       <form onSubmit={handleSubmit}>
         <input
